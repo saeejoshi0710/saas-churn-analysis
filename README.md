@@ -108,6 +108,7 @@ and projected revenue impact per segment.
 
 Open notebooks in Google Colab or Jupyter in order: 01 to 02 to 03 to 04
 
-No downloads needed. Data loads directly from IBM's GitHub in notebook 01.
+No downloads needed. Data loads automatically from IBM's public GitHub in notebook 01, no manual download needed.
+Source: https://github.com/IBM/telco-customer-churn-on-icp4d
 
 *All analysis is for portfolio purposes.*
