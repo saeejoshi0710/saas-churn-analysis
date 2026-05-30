@@ -1,6 +1,6 @@
 # SaaS Customer Churn — Prediction and Retention Analysis
 
-![Churn distribution](churn_distribution.png)
+![Churn distribution](figures/churn_distribution.png)
 
 ## Business Objective
 
@@ -37,13 +37,13 @@ The high-risk customer profile is consistent across all five signals:
 month-to-month contract, new customer, no protective services, paying 
 by electronic check. That is what the model learned to catch.
 
-![Churn by contract](churn_by_contract.png)
+![Churn by contract](figures/churn_by_contract.png)
 
-![Churn by tenure](churn_by_tenure.png)
+![Churn by tenure](figures/churn_by_tenure.png)
 
-![Churn by services](churn_by_services.png)
+![Churn by services](figures/churn_by_services.png)
 
-![Churn by payment method](churn_by_payment.png)
+![Churn by payment method](figures/churn_by_payment.png)
 
 ---
 
