@@ -84,17 +84,18 @@ and projected revenue impact per segment.
 
     saas-churn-analysis/
     │
-    ├── 01_eda.ipynb                  # Where the patterns live
-    ├── 02_feature_engineering.ipynb  # Turning findings into model inputs
-    ├── 03_modeling.ipynb             # Logistic regression, random forest, XGBoost + SHAP
-    ├── 04_retention_strategy.ipynb   # What to actually do with the predictions
+    ├── 01_eda.ipynb                  # Done — EDA and key findings
+    ├── 02_feature_engineering.ipynb  # Done — 25 engineered features
+    ├── 03_modeling.ipynb             # Coming soon
+    ├── 04_retention_strategy.ipynb   # Coming soon
+    ├── requirements.txt
     │
-    ├── churn_distribution.png
-    ├── churn_by_contract.png
-    ├── churn_by_tenure.png
-    ├── churn_by_services.png
-    └── churn_by_payment.png
-
+    └── figures/
+        ├── churn_distribution.png
+        ├── churn_by_contract.png
+        ├── churn_by_tenure.png
+        ├── churn_by_services.png
+        └── churn_by_payment.png
 ---
 
 ## Tools and technologies
@@ -108,7 +109,7 @@ and projected revenue impact per segment.
 
 Open notebooks in Google Colab or Jupyter in order: 01 to 02 to 03 to 04
 
-No downloads needed. Data loads automatically from IBM's public GitHub in notebook 01, no manual download needed.
+No downloads needed. Data loads automatically from IBM's public GitHub in notebook 01.
 Source: https://github.com/IBM/telco-customer-churn-on-icp4d
 
 *All analysis is for portfolio purposes.*
