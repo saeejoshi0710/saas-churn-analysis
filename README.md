@@ -4,10 +4,10 @@
 
 ## Business Objective
 
-Every month, about 1 in 4 customers stops paying. That is not a 
-rounding error. It is a structural problem that compounds. This 
-project does two things: figures out which customers are most likely 
-to leave before they do, and turns that into a concrete retention 
+Every month, about 1 in 4 customers stops paying. That is not a
+rounding error. It is a structural problem that compounds. This
+project does two things: figures out which customers are most likely
+to leave before they do, and turns that into a concrete retention
 strategy with a projected dollar impact.
 
 ---
@@ -33,8 +33,8 @@ Five signals stood out before any modeling:
 | Month-to-month vs two-year contract | 42.7% churn | 2.8% churn | 15x |
 | First 12 months vs 49+ months tenure | 47.7% churn | 9.5% churn | 5x |
 
-The high-risk customer profile is consistent across all five signals: 
-month-to-month contract, new customer, no protective services, paying 
+The high-risk customer profile is consistent across all five signals:
+month-to-month contract, new customer, no protective services, paying
 by electronic check. That is what the model learned to catch.
 
 ![Churn by contract](figures/churn_by_contract.png)
@@ -53,20 +53,29 @@ Three models compared with 5-fold cross-validation:
 
 | Model | AUC-ROC | Recall | Precision |
 |-------|---------|--------|-----------|
-| Logistic Regression | | | |
-| Random Forest | | | |
-| XGBoost | | | |
+| Logistic Regression | 0.839 | 0.701 | 0.553 |
+| Random Forest | 0.824 | 0.496 | 0.640 |
+| XGBoost | 0.819 | 0.522 | 0.615 |
 
-*(Results updated after notebook 03)*
+Best model: Logistic Regression — AUC-ROC 0.839 on held-out test set.
+Threshold tuned to 0.35 to prioritize recall — catches 7 in 10 churners.
+SHAP analysis revealed MonthlyCharges as the top churn driver, ranking
+above contract type which dominated the EDA findings.
 
-The classification threshold was chosen deliberately. For churn 
-prediction, missing a churner costs more than a false alarm. Higher 
-recall was prioritized over precision, with that tradeoff documented 
+The classification threshold was chosen deliberately. For churn
+prediction, missing a churner costs more than a false alarm. Higher
+recall was prioritized over precision, with that tradeoff documented
 explicitly.
 
-SHAP values explain individual predictions rather than just ranking 
-feature importance. That distinction matters when the goal is 
-actionable retention decisions, not just model accuracy.
+![Model comparison](figures/model_comparison.png)
+
+![ROC curve](figures/roc_curve.png)
+
+![Confusion matrix](figures/confusion_matrix.png)
+
+![SHAP feature importance](figures/shap_importance.png)
+
+![SHAP dot plot](figures/shap_dotplot.png)
 
 ---
 
@@ -74,8 +83,8 @@ actionable retention decisions, not just model accuracy.
 
 *(Updated after notebook 04)*
 
-The output of this project is not just a model. It is a segmentation 
-of customers by risk and value, with a budget allocation recommendation 
+The output of this project is not just a model. It is a segmentation
+of customers by risk and value, with a budget allocation recommendation
 and projected revenue impact per segment.
 
 ---
@@ -86,7 +95,7 @@ and projected revenue impact per segment.
     │
     ├── 01_eda.ipynb                  # Done — EDA and key findings
     ├── 02_feature_engineering.ipynb  # Done — 25 engineered features
-    ├── 03_modeling.ipynb             # Coming soon
+    ├── 03_modeling.ipynb             # Done — logistic regression, SHAP, threshold tuning
     ├── 04_retention_strategy.ipynb   # Coming soon
     ├── requirements.txt
     │
@@ -95,7 +104,13 @@ and projected revenue impact per segment.
         ├── churn_by_contract.png
         ├── churn_by_tenure.png
         ├── churn_by_services.png
-        └── churn_by_payment.png
+        ├── churn_by_payment.png
+        ├── model_comparison.png
+        ├── roc_curve.png
+        ├── confusion_matrix.png
+        ├── shap_importance.png
+        └── shap_dotplot.png
+
 ---
 
 ## Tools and technologies
@@ -110,6 +125,7 @@ and projected revenue impact per segment.
 Open notebooks in Google Colab or Jupyter in order: 01 to 02 to 03 to 04
 
 No downloads needed. Data loads automatically from IBM's public GitHub in notebook 01.
+
 Source: https://github.com/IBM/telco-customer-churn-on-icp4d
 
 *All analysis is for portfolio purposes.*
