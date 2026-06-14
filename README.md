@@ -79,13 +79,63 @@ explicitly.
 
 ---
 
-## Retention recommendation
+## Retention strategy and revenue impact
 
-*(Updated after notebook 04)*
+Every customer was scored with the trained model and segmented into
+four groups based on churn risk (threshold 0.35) and value (median
+monthly charge of $70.35).
 
-The output of this project is not just a model. It is a segmentation
-of customers by risk and value, with a budget allocation recommendation
-and projected revenue impact per segment.
+| Segment | Customers | Avg Monthly Charge | Avg Tenure | Churn Rate | Monthly Revenue | Revenue at Risk |
+|---------|-----------|--------------------|------------|------------|------------------|------------------|
+| High Risk / High Value | 1,645 (23.4%) | $88.00 | 17 months | 60.0% | $144,756 | $87,443 (60.4%) |
+| High Risk / Low Value | 666 (9.5%) | $50.51 | 5 months | 51.0% | $33,640 | $17,616 (52.4%) |
+| Low Risk / High Value | 1,879 (26.7%) | $92.82 | 54 months | 13.0% | $174,406 | $24,035 (13.8%) |
+| Low Risk / Low Value | 2,853 (40.5%) | $36.21 | 33 months | 10.0% | $103,314 | $10,934 (10.6%) |
+
+Total revenue at risk: **$140,028/month** (30.7% of total monthly revenue)
+
+![Segment distribution](figures/segment_distribution.png)
+
+### Recommended interventions
+
+| Segment | Action | Budget allocation | Projected churn reduction |
+|---------|--------|--------------------|----------------------------|
+| High Risk / High Value | Proactive outreach + contract upgrade incentive | 70% | 25% → $21,861/month saved |
+| High Risk / Low Value | Automated email + free service add-on trial | 15% | 12.5% → $2,202/month saved |
+| Low Risk / High Value | Loyalty recognition + upsell campaign | 15% | Maintain current churn rate |
+| Low Risk / Low Value | Monitor only | 0% | No change expected |
+
+![Revenue impact](figures/revenue_impact.png)
+
+### Projected outcome
+
+- **Monthly revenue saved:** $24,063
+- **Annual revenue saved:** $288,756
+
+The output of this project is not just a model. It is a
+dollar-quantified retention strategy, prioritizing spend on the
+segment where it matters most: customers who are both likely to
+leave and worth keeping.
+
+---
+
+## Key takeaways
+
+- 2-year contracts reduce churn by 15x compared to month-to-month
+- MonthlyCharges, not contract type, is the strongest predictor in the
+  trained model. EDA correlation and model-driven feature importance
+  can diverge, and that gap is where the real insight is
+- Threshold tuning (0.35 instead of 0.5) reflects a real business
+  tradeoff: missing a churner is more costly than a false alarm
+- Concentrating retention spend on the High Risk / High Value segment
+  alone projects $288,756 in annual revenue saved
+
+### What I would do next with more time
+
+- Add customer support interaction data as features
+- Build a survival analysis model to predict time-to-churn
+- Deploy the model as a weekly scoring pipeline
+- A/B test retention interventions to validate projected impact
 
 ---
 
@@ -96,7 +146,7 @@ and projected revenue impact per segment.
     ├── 01_eda.ipynb                  # Done — EDA and key findings
     ├── 02_feature_engineering.ipynb  # Done — 25 engineered features
     ├── 03_modeling.ipynb             # Done — logistic regression, SHAP, threshold tuning
-    ├── 04_retention_strategy.ipynb   # Coming soon
+    ├── 04_retention_strategy.ipynb   # Done — segmentation, revenue impact, recommendations
     ├── requirements.txt
     │
     └── figures/
@@ -109,13 +159,15 @@ and projected revenue impact per segment.
         ├── roc_curve.png
         ├── confusion_matrix.png
         ├── shap_importance.png
-        └── shap_dotplot.png
+        ├── shap_dotplot.png
+        ├── segment_distribution.png
+        └── revenue_impact.png
 
 ---
 
 ## Tools and technologies
 
-- **Python:** pandas, scikit-learn, XGBoost, SHAP, matplotlib, seaborn
+- **Python:** pandas, numpy, scikit-learn, XGBoost, SHAP, matplotlib, seaborn
 - **Data:** IBM Watson Telco Customer Churn (real data, not synthetic)
 
 ---
